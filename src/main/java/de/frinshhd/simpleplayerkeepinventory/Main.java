@@ -1,6 +1,5 @@
 package de.frinshhd.simpleplayerkeepinventory;
 
-import jdk.internal.vm.annotation.ReservedStackAccess;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,9 +22,13 @@ public final class Main extends JavaPlugin implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
 
-        if (player.getKiller() != null)
+        if (player.getKiller() != null) {
             event.setKeepInventory(true);
-        else
+            event.setShouldDropExperience(false);
+            event.getDrops().clear();
+        }
+        else {
             event.setKeepInventory(false);
+        }
     }
 }
